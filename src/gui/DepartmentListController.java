@@ -57,7 +57,6 @@ public class DepartmentListController implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		initializeNodes();
-		
 	}
 
 	private void initializeNodes() {
@@ -66,7 +65,6 @@ public class DepartmentListController implements Initializable {
 		
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		tableViewDepartment.prefHeightProperty().bind(stage.heightProperty());
-		
 	}
 	
 	public void updateTableView() {
@@ -77,7 +75,6 @@ public class DepartmentListController implements Initializable {
 		List<Department> list = service.findAll();
 		obsList = FXCollections.observableArrayList(list);
 		tableViewDepartment.setItems(obsList);
-		
 	}
 	
 	private void createDialogForm(Department obj, String absoluteName, Stage parentStage) {
@@ -87,6 +84,7 @@ public class DepartmentListController implements Initializable {
 			
 			DepartmentFormController controller = loader.getController();
 			controller.setDepartment(obj);
+			controller.setDepartmentService(new DepartmentService());
 			controller.updateFormData();
 			
 			Stage dialogStage = new Stage();
@@ -96,12 +94,9 @@ public class DepartmentListController implements Initializable {
 			dialogStage.initOwner(parentStage);
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.showAndWait();
-			
 		}
 		catch(IOException e) {
 			Alerts.showAlert("IO Exception: ", "Error loading view", e.getMessage(), AlertType.ERROR);
 		}
-		
 	}
-
 }
